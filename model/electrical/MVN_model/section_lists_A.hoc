@@ -1,0 +1,23 @@
+// define section lists for sections that have particular channels
+
+/////////// proximal and distal sections for type A cell
+
+objref A_prox_sects, A_dist_sects
+
+A_prox_sects = new SectionList()
+A_dist_sects = new SectionList()
+
+for (i=0; i<=2 ; i = i + 1) dendA[i] A_prox_sects.append()
+
+for (i=3; i<=8 ; i = i + 1) dendA[i] A_dist_sects.append()
+
+
+///////////////////////////// all sections in a cell
+
+objref A_sects
+
+A_sects = new SectionList()
+
+somaA A_sects.append()
+
+for (i=0; i<=8 ; i = i + 1) dendA[i] A_sects.append()

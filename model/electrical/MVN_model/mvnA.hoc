@@ -1,0 +1,179 @@
+proc celldefA() {
+  topolA()
+  subsetsA()
+  geomA()
+  biophysA()
+  geom_nsegA()
+}
+
+create somaA, dendA[9]
+
+proc topolA() { local i
+  for i = 0, 1 connect dendA[i](0), somaA(0)
+  connect dendA[2](0), somaA(1)
+  for i = 3, 4 connect dendA[i](0), dendA(1)
+  for i = 5, 6 connect dendA[i](0), dendA[1](1)
+  for i = 7, 8 connect dendA[i](0), dendA[2](1)
+  basic_shapeA()
+}
+proc basic_shapeA() {
+  somaA {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(15, 0, 0, 1)}
+  dendA {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(-89, -14, 0, 1)}
+  dendA[1] {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(0, -74, 0, 1)}
+  dendA[2] {pt3dclear() pt3dadd(15, 0, 0, 1) pt3dadd(105, -14, 0, 1)}
+  dendA[3] {pt3dclear() pt3dadd(-89, -14, 0, 1) pt3dadd(-149, -59, 0, 1)}
+  dendA[4] {pt3dclear() pt3dadd(-89, -14, 0, 1) pt3dadd(-89, -74, 0, 1)}
+  dendA[5] {pt3dclear() pt3dadd(0, -74, 0, 1) pt3dadd(-44, -119, 0, 1)}
+  dendA[6] {pt3dclear() pt3dadd(0, -74, 0, 1) pt3dadd(45, -119, 0, 1)}
+  dendA[7] {pt3dclear() pt3dadd(105, -14, 0, 1) pt3dadd(90, -74, 0, 1)}
+  dendA[8] {pt3dclear() pt3dadd(105, -14, 0, 1) pt3dadd(150, -44, 0, 1)}
+}
+
+objref allA, somalA, alldendritesA, proximalA, distalA
+proc subsetsA() { local i
+  objref allA, somalA, alldendritesA, proximalA, distalA
+  allA = new SectionList()
+    somaA allA.append()
+    for i=0, 8 dendA[i] allA.append()
+
+  somalA = new SectionList()
+    somaA somalA.append()
+
+  alldendritesA = new SectionList()
+    for i=0, 8 dendA[i] alldendritesA.append()
+
+  proximalA = new SectionList()
+    for i=0, 2 dendA[i] proximalA.append()
+
+  distalA = new SectionList()
+    for i=3, 8 dendA[i] distalA.append()
+
+}
+proc geomA() {
+  forsec proximalA {  L = 99  diam = 3  }
+  forsec distalA {  L = 198  diam = 1  }
+  somaA {  L = 31  diam = 31  }
+}
+proc geom_nsegA() {
+  somaA area(.5) // make sure diam reflects 3d points
+   forsec proximalA { nseg = 3  }
+   forsec distalA { nseg = 6  }
+   somaA { nseg = 1  }
+}
+proc biophysA() {
+  forsec allA {
+    Ra = 150
+    cm = 1
+  }
+  forsec somalA {
+    insert na
+      gbar_na = 0.020172
+      Erev_na = 50
+    insert nap
+      gbar_nap = 3.3e-05
+      Erev_nap = 50
+    insert akfast
+      gbar_akfast = 0.024073
+      Erev_akfast = -82
+    insert ahp
+      gbar_ahp = 0.002167
+      Erev_ahp = -82
+      betaq_const_ahp = 0.074
+    insert kslow
+      gbar_kslow = 0.000298
+      Erev_kslow = -82
+    insert a
+      gbar_a = 0.001829
+      Erev_a = -82
+    insert hva
+      gbar_hva = 0.00111
+      Erev_hva = 80
+    insert naleak
+      g_naleak = 3.02e-05
+      Erev_naleak = 50
+    insert clleak
+      g_clleak = 5.96e-05
+      Erev_clleak = -70
+    insert caleak
+      g_caleak = 1.33e-06
+      Erev_caleak = 80
+    insert kleak
+      g_kleak = 0.0001328
+      Erev_kleak = -82
+    insert ca_soma
+      B_ca_soma = 0.025
+      K2f_ex_ca_soma = 6.36803e-08
+      K2f_ATPase_ca_soma = 0.000511372
+    insert hcurr
+      gbar_hcurr = 0.00011
+      Erev_hcurr = -46
+  }
+//  forsec alldendritesA {
+//    insert nmda
+//      gbar_nmda = 0.00257
+//      Erev_nmda = 0
+//  }
+  forsec proximalA {
+    insert na
+      gbar_na = 0.006667
+      Erev_na = 50
+    insert nap
+      gbar_nap = 3.22e-05
+      Erev_nap = 50
+    insert naleak
+      g_naleak = 8.8e-07
+      Erev_naleak = 50
+    insert kslow
+      gbar_kslow = 0.00024
+      Erev_kslow = -82
+    insert kleak
+      g_kleak = 4.6e-06
+      Erev_kleak = -82
+    insert hva
+      gbar_hva = 0.0008
+      Erev_hva = 80
+    insert clleak
+      g_clleak = 1.25e-06
+      Erev_clleak = -70
+    insert caleak
+      g_caleak = 6e-08
+      Erev_caleak = 80
+    insert a
+      gbar_a = 0.000427
+      Erev_a = -82
+    insert akfast
+      gbar_akfast = 0.00648
+      Erev_akfast = -82
+    insert ca_prox
+      B_ca_prox = 0.025
+      K2f_ex_ca_prox = 6.19436e-08
+      K2f_ATPase_ca_prox = 0.00012408
+    insert hcurr
+      gbar_hcurr = 0.00011
+      Erev_hcurr = -46
+  }
+  forsec distalA {
+    insert akfast
+      gbar_akfast = 0.00243
+      Erev_akfast = -82
+    insert hva
+      gbar_hva = 0.00035
+      Erev_hva = 80
+    insert naleak
+      g_naleak = 8.8e-07
+      Erev_naleak = 50
+    insert clleak
+      g_clleak = 1.25e-06
+      Erev_clleak = -70
+    insert kleak
+      g_kleak = 4.6e-06
+      Erev_kleak = -82
+    insert ca_dist
+      B_ca_dist = 0.025
+      K2f_ex_ca_dist = 9.35907e-08
+      K2f_ATPase_ca_dist = 1.85252e-05
+  }
+}
+access somaA
+
+celldefA()

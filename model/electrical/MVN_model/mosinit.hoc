@@ -1,0 +1,51 @@
+load_file("nrngui.hoc")
+load_file("bothcells.ses")
+access somaA
+
+// comment out everything that is figure specific for now
+load_file("section_lists.hoc")
+load_file("nmda_offon.hoc")
+
+///////////////////
+//load_file("nrngui.hoc")
+
+strdef tstr
+
+xpanel("Figures for Quadroni and Knopfel 1994")
+xlabel("Press a button to create the figure")
+xlabel(" ")
+xradiobutton("2 A1 B1", "restart(\"fig2a1b1\")")
+xradiobutton("2 A2 B2", "restart(\"fig2a2b2\")")
+xradiobutton("2 C", "restart(\"fig2c\")")
+xradiobutton("2 D", "restart(\"fig2d\")")
+xradiobutton("3", "restart(\"fig3\")")
+xradiobutton("4 A", "restart(\"fig4a\")")
+// xradiobutton("13 A B", "restart(\"fig13ab\")") // almost working !
+xlabel(" ")
+xlabel("Some of these demos will reduce resolution (dt increased) ")
+xlabel("to make a briefer total run time because they take minutes.")
+xlabel("(Figures 2C, 2D, and 3 are some of the shorter demos). Change the time ")
+xlabel("time step to at the most 0.025 ms for greater accuracy if desired.")
+xlabel("The simulations need a time step of smaller than 0.1 ms to not be to")
+xlabel("far from numerical stability.")
+
+xpanel(5,100)
+
+pwmcnt = PWManager[0].count // the initial gui should not be dismissed
+
+proc restart() {local i
+	objref graphItem, save_window_
+	for i=0, n_graph_lists-1 {
+		graphList[i].remove_all()
+	}
+	flush_list.remove_all()
+	fast_flush_list.remove_all()
+	doNotify()
+	for (i= PWManager[0].count-1; i >= pwmcnt; i -= 1) {
+		PWManager[0].close(i)
+		doNotify()
+	}
+	
+	sprint(tstr, "%s.hoc", $s1)
+	load_file(1, tstr)
+}

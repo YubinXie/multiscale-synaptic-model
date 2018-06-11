@@ -1,0 +1,55 @@
+/* ranloc.hoc
+   RandomLocation - relocates a synapse to a random location (object)
+   BPG 8-11-07
+
+*/
+
+
+objectvar ran
+ran = new Random()
+
+
+/*
+RandomLocation
+
+rl = new RandomLocation(SectionList, seed)
+rl.loc(PointProcess1,PointProcess2)
+
+relocates the PointProcess to a random location with respect to
+uniform distribution based on position.
+SectionList defines the set of sections to sample.
+*/
+
+begintemplate RandomLocation
+
+public loc
+objectvar seclist, ran
+
+proc init() {
+    seclist = $o1
+    ran = new Random($2)
+    total_length = 0
+    forsec seclist { total_length = total_length + L }
+}
+
+// randomize location of synapse
+// if required put synapse on spine, scale conductance and onset
+proc loc() {local l, done, rpos, secx, dx
+  //ranloc.loc(AMPAsyn, NMDAsyn)
+  rpos = ran.uniform(0, total_length)
+  done = 0
+  l = 0
+  distance()  // assumes soma is currently accessed               
+  forsec seclist {
+    l = l + L
+    if (l > rpos) {
+      secx = (rpos - l + L)/L
+      $o1.loc(secx)
+      $o2.loc(secx)
+      rpos = 1e20   // a break would screw up the stack?
+    }
+  }
+}
+
+endtemplate RandomLocation
+

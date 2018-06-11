@@ -1,0 +1,129 @@
+{load_file("nrngui.hoc")}
+objectvar save_window_, rvp_
+objectvar scene_vector_[7]
+objectvar ocbox_, ocbox_list_, scene_, scene_list_
+{ocbox_list_ = new List()  scene_list_ = new List()}
+{pwman_place(0,0,0)}
+{
+xpanel("Synaptic weights", 0)
+Aweight = 2e-05
+xvalue("AMPA","Aweight", 1,"", 0, 1 )
+Nweight = 5e-05
+xvalue("NMDA","Nweight", 1,"", 0, 1 )
+xbutton("Update","set_weights()")
+xpanel(264,732)
+}
+{
+xpanel("Synaptic spike", 0)
+ns.start = 260
+xvalue("Start time","ns.start", 1,"", 0, 1 )
+ns.interval = 10
+xvalue("Interspike interval","ns.interval", 1,"", 0, 1 )
+ns.number = 1
+xvalue("Number","ns.number", 1,"", 0, 1 )
+xpanel(260,897)
+}
+{
+xpanel("RunControl", 0)
+v_init = -65
+xvalue("Init","v_init", 1,"stdinit()", 1, 1 )
+xbutton("Init & Run","run()")
+xbutton("Stop","stoprun=1")
+runStopAt = 5
+xvalue("Continue til","runStopAt", 1,"{continuerun(runStopAt) stoprun=1}", 1, 1 )
+runStopIn = 1
+xvalue("Continue for","runStopIn", 1,"{continuerun(t + runStopIn) stoprun=1}", 1, 1 )
+xbutton("Single Step","steprun()")
+t = 400
+xvalue("t","t", 2 )
+tstop = 400
+xvalue("Tstop","tstop", 1,"tstop_changed()", 0, 1 )
+dt = 0.025
+xvalue("dt","dt", 1,"setdt()", 0, 1 )
+steps_per_ms = 40
+xvalue("Points plotted/ms","steps_per_ms", 1,"setdt()", 0, 1 )
+screen_update_invl = 0.05
+xvalue("Scrn update invl","screen_update_invl", 1,"", 0, 1 )
+realtime = 40.84
+xvalue("Real Time","realtime", 0,"", 0, 1 )
+xpanel(0,96)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,400,-80,40)
+scene_vector_[2] = save_window_
+{save_window_.view(0, -80, 400, 120, 324, 0, 300.6, 200.8)}
+graphList[0].append(save_window_)
+save_window_.save_name("graphList[0].")
+save_window_.addexpr("v(.5)", 1, 1, 0.8, 0.9, 2)
+save_window_.addexpr("dendB[0].v( 0.5 )", 2, 1, 0.8, 0.9, 2)
+save_window_.addexpr("dendB[10].v( 0.5 )", 3, 1, 0.8, 0.9, 2)
+}
+{
+xpanel("IClamp[0] at somaB(0.5)", 0)
+xlabel("IClamp[0] at somaB(0.5)")
+ccres.del = 0
+xvalue("del","ccres.del", 1,"", 0, 1 )
+ccres.dur = 1000
+xvalue("dur","ccres.dur", 1,"", 0, 1 )
+ccres.amp = -0.06
+xvalue("amp","ccres.amp", 1,"", 0, 1 )
+ccres.i = -0.06
+xvalue("i","ccres.i", 0,"", 0, 1 )
+xpanel(0,534)
+}
+{
+xpanel("IClamp[1] at somaB(0.5)", 0)
+xlabel("IClamp[1] at somaB(0.5)")
+cchyp.del = 200
+xvalue("del","cchyp.del", 1,"", 0, 1 )
+cchyp.dur = 20
+xvalue("dur","cchyp.dur", 1,"", 0, 1 )
+cchyp.amp = -0.16
+xvalue("amp","cchyp.amp", 1,"", 0, 1 )
+cchyp.i = 0
+xvalue("i","cchyp.i", 0,"", 0, 1 )
+xpanel(0,750)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,400,0,0.0019)
+scene_vector_[3] = save_window_
+{save_window_.view(0, 0, 400, 0.0019, 324, 336, 303.3, 200.8)}
+graphList[2].append(save_window_)
+save_window_.save_name("graphList[2].")
+save_window_.addexpr("dendB[0].cai( 0.5 )", 1, 1, 0.8, 0.9, 2)
+save_window_.addexpr("dendB[10].cai( 0.5 )", 3, 1, 0.8, 0.9, 2)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,400,-0.009,2.91038e-10)
+scene_vector_[4] = save_window_
+{save_window_.view(0, -0.009, 400, 0.009, 738, 0, 279.9, 200.8)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addexpr("dendB[0].i_hva( 0.5 )", 1, 1, 0.8, 0.9, 2)
+save_window_.addexpr("dendB[0].i_lva( 0.5 )", 3, 1, 0.8, 0.9, 2)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,400,-0.00065,2.91038e-11)
+scene_vector_[5] = save_window_
+{save_window_.view(0, -0.00065, 400, 0.00065, 732, 336, 298.8, 200.8)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addexpr("dendB[10].i_hva( 0.5 )", 1, 1, 0.8, 0.9, 2)
+save_window_.addexpr("dendB[10].i_lva( 0.5 )", 3, 1, 0.8, 0.9, 2)
+}
+{
+save_window_ = new Graph(0)
+save_window_.size(0,400,-0.0045,1.45519e-10)
+scene_vector_[6] = save_window_
+{save_window_.view(0, -0.0045, 400, 0.0045, 1092, 0, 326.7, 200.8)}
+graphList[1].append(save_window_)
+save_window_.save_name("graphList[1].")
+save_window_.addvar("Asyn[0].i", 1, 1, 0.8, 0.9, 2)
+save_window_.addvar("Nsyn[0].i", 2, 1, 0.8, 0.9, 2)
+}
+objectvar scene_vector_[1]
+{doNotify()}

@@ -1,0 +1,54 @@
+// MVN B cell with AMPA/NMDA synapse in every dendritic compartment
+// LVA and Nap reduced to approximate Menzies & Dutia low firing and lack of rebound
+// BPG 7-11-07
+
+load_file("nrngui.hoc")
+load_file("globals.hoc")
+load_file("mvnB.hoc")
+
+// general simulation settings
+DT = 0.025
+dt = DT
+steps_per_ms = 1/DT
+tstart = TSTART
+tstop = TSTOP
+celsius = TEMPERATURE
+v_init = V_INIT
+
+access somaB
+
+
+// reduce ILVA and INaP to stop rebound firing
+//forsec somalB gbar_lva = 0.000166 / 3
+//forsec proximalB gbar_lva = 0.000651 / 3
+//forsec proximalB gbar_lva = 0.000166
+forsec somalB gbar_lva = 5e-5	
+forsec proximalB gbar_lva = 5e-5	// as for distal
+forsec somalB gbar_nap = 2.36e-05 / 3
+forsec proximalB gbar_nap = 3.8e-05 / 3
+
+
+// set up AMPA/NMDA synapses
+load_file("add_syn.hoc")
+
+// set up GABA synapses
+load_file("add_syninh.hoc")
+
+
+// Current clamps
+objref ccres, cchyp
+
+// hold at rest potential (-65mV)
+somaB ccres = new IClamp(0.5)
+ccres.del = 0
+ccres.dur = 1000
+ccres.amp = -0.06
+
+// hyperpolarising pulse
+somaB cchyp = new IClamp(0.5)
+cchyp.del = 200
+cchyp.dur = 20
+cchyp.amp = -0.16
+
+//xopen("mvnB_NMDA.ses")
+xopen("mvnB_MD_VASH.ses")

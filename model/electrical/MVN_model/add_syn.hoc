@@ -1,0 +1,73 @@
+// Add AMPA/NMDA synapses to every dendritic compartment
+// BPG 31-10-07
+
+NSYN = 60
+objref Asyn[NSYN], Nsyn[NSYN], ncA[NSYN], ncN[NSYN], ns
+
+Aweight = 0.00002
+Nweight = 0.00005
+
+// single spike to synapse
+somaB ns = new NetStim(0.5)
+ns.interval = 10000
+ns.number = 1
+ns.start = 220
+ns.noise = 0
+
+// panel for spike timing
+xpanel("Synaptic spike")
+xpvalue("Start time", &ns.start, 1)
+xpvalue("Interspike interval", &ns.interval, 1)
+xpvalue("Number", &ns.number, 1)
+xpanel()
+
+// Attach synapses to proximal dendrites
+for j=0,3 {
+  for i=0,2 {
+    dendB[j] Asyn[j*3+i] = new Exp2Syn(0.25*(i+1))  // AMPA
+    dendB[j] Nsyn[j*3+i] = new NMDAsyn(0.25*(i+1))
+  }
+}
+
+// Attach synapses to distal dendrites
+for j=4,11 {
+  for i=0,5 {
+    dendB[j] Asyn[(j-4)*6+i+12] = new Exp2Syn(0.125*(i+1))  // AMPA
+    dendB[j] Nsyn[(j-4)*6+i+12] = new NMDAsyn(0.125*(i+1))
+  }
+}
+
+// Set synaptic properties
+for i=0,NSYN-1 {
+  // AMPA
+//  Asyn[i].tau1 = 0.2	// fast rise
+  Asyn[i].tau1 = 1	// fast rise (probably more realistic)
+  Asyn[i].tau2 = 7	// decay at -60mV (Anchisi et al)
+  Asyn[i].e = 2.3	// Anchisi et al
+  ncA[i] = new NetCon(ns, Asyn[i], -20, 1, Aweight)
+  // NMDA
+  Nsyn[i].tau1 = 12.5	// slow rise
+  Nsyn[i].tau2 = 20	// decay at -60mV (Anchisi et al)
+//  Nsyn[i].tau1 = 9	// slow rise (mean-std)
+//  Nsyn[i].tau2 = 11	// decay at -60mV (Anchisi et al) (mean-std)
+  Nsyn[i].e = -0.5	// Anchisi et al
+  ncN[i] = new NetCon(ns, Nsyn[i], -20, 1, Nweight)
+}
+
+
+proc set_weights() {
+  for i=0,NSYN-1 {
+    ncA[i].weight = Aweight  // AMPA
+    ncN[i].weight = Nweight  // NMDA
+  }
+}
+
+
+// Panel for adjusting weights
+xpanel("Synaptic weights")
+xpvalue("AMPA", &Aweight, 1)
+xpvalue("NMDA", &Nweight, 1)
+xbutton("Update", "set_weights()")
+xpanel()
+
+

@@ -1,0 +1,189 @@
+proc celldefB() {
+  topolB()
+  subsetsB()
+  geomB()
+  biophysB()
+  geom_nsegB()
+}
+
+create somaB, dendB[12]
+
+proc topolB() { local i
+  for i = 0, 1 connect dendB[i](0), somaB(0)
+  for i = 2, 3 connect dendB[i](0), somaB(1)
+  for i = 4, 5 connect dendB[i](0), dendB(1)
+  for i = 6, 7 connect dendB[i](0), dendB[1](1)
+  for i = 8, 9 connect dendB[i](0), dendB[2](1)
+  for i = 10, 11 connect dendB[i](0), dendB[3](1)
+  basic_shapeB()
+}
+proc basic_shapeB() {
+  somaB {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(15, 0, 0, 1)}
+  dendB {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(-104, 0, 0, 1)}
+  dendB[1] {pt3dclear() pt3dadd(0, 0, 0, 1) pt3dadd(-59, -44, 0, 1)}
+  dendB[2] {pt3dclear() pt3dadd(15, 0, 0, 1) pt3dadd(45, -59, 0, 1)}
+  dendB[3] {pt3dclear() pt3dadd(15, 0, 0, 1) pt3dadd(90, 0, 0, 1)}
+  dendB[4] {pt3dclear() pt3dadd(-104, 0, 0, 1) pt3dadd(-164, 15, 0, 1)}
+  dendB[5] {pt3dclear() pt3dadd(-104, 0, 0, 1) pt3dadd(-164, -29, 0, 1)}
+  dendB[6] {pt3dclear() pt3dadd(-59, -44, 0, 1) pt3dadd(-119, -59, 0, 1)}
+  dendB[7] {pt3dclear() pt3dadd(-59, -44, 0, 1) pt3dadd(-44, -89, 0, 1)}
+  dendB[8] {pt3dclear() pt3dadd(45, -59, 0, 1) pt3dadd(30, -104, 0, 1)}
+  dendB[9] {pt3dclear() pt3dadd(45, -59, 0, 1) pt3dadd(105, -74, 0, 1)}
+  dendB[10] {pt3dclear() pt3dadd(90, 0, 0, 1) pt3dadd(120, -44, 0, 1)}
+  dendB[11] {pt3dclear() pt3dadd(90, 0, 0, 1) pt3dadd(150, 15, 0, 1)}
+}
+
+objref allB, somalB, alldendritesB, proximalB, distalB
+proc subsetsB() { local i
+  objref allB, somalB, alldendritesB, proximalB, distalB
+  allB = new SectionList()
+    somaB allB.append()
+    for i=0, 11 dendB[i] allB.append()
+
+  somalB = new SectionList()
+    somaB somalB.append()
+
+  alldendritesB = new SectionList()
+    for i=0, 11 dendB[i] alldendritesB.append()
+
+  proximalB = new SectionList()
+    for i=0, 3 dendB[i] proximalB.append()
+
+  distalB = new SectionList()
+    for i=4, 11 dendB[i] distalB.append()
+
+}
+proc geomB() {
+  forsec proximalB {  L = 99  diam = 3  }
+  forsec distalB {  L = 198  diam = 1  }
+  somaB {  L = 31  diam = 31  }
+}
+proc geom_nsegB() {
+  somaB area(.5) // make sure diam reflects 3d points
+   forsec proximalB { nseg = 3  }
+   forsec distalB { nseg = 6  }
+   somaB { nseg = 1  }
+}
+proc biophysB() {
+  forsec allB {
+    Ra = 150
+    cm = 1
+  }
+  forsec somalB {
+    insert ahp
+      gbar_ahp = 0.002716
+      Erev_ahp = -82
+      betaq_const_ahp = 0.074
+    insert nap
+      gbar_nap = 2.36e-05
+      Erev_nap = 50
+    insert na
+      gbar_na = 0.043
+      Erev_na = 50
+    insert naleak
+      g_naleak = 3.78e-05
+      Erev_naleak = 50
+    insert lva
+      gbar_lva = 0.000166
+      Erev_lva = 80
+    insert kslow
+      gbar_kslow = 0.000519
+      Erev_kslow = -82
+    insert kleak
+      g_kleak = 0.000166
+      Erev_kleak = -82
+    insert hva
+      gbar_hva = 0.002385
+      Erev_hva = 80
+    insert clleak
+      g_clleak = 7.46e-05
+      Erev_clleak = -70
+    insert caleak
+      g_caleak = 1.66e-06
+      Erev_caleak = 80
+    insert bkfast
+      gbar_bkfast = 0.03753
+      Erev_bkfast = -82
+    insert a
+      gbar_a = 0.000755
+      Erev_a = -82
+    insert ca_soma
+      B_ca_soma = 0.025
+      K2f_ex_ca_soma = 2.5472e-07
+      K2f_ATPase_ca_soma = 0.00076609
+    insert hcurr
+      gbar_hcurr = 0.000066
+      Erev_hcurr = -46
+  }
+//  forsec alldendritesB {
+//    insert nmda
+//      gbar_nmda = 0.00257
+//     Erev_nmda = 0
+//  }
+  forsec proximalB {
+    insert nap
+      gbar_nap = 3.8e-05
+      Erev_nap = 50
+    insert na
+      gbar_na = 0.00288
+      Erev_na = 50
+    insert naleak
+      g_naleak = 7e-07
+      Erev_naleak = 50
+    insert lva
+      gbar_lva = 0.000651
+      Erev_lva = 80
+    insert kslow
+      gbar_kslow = 0.000406
+      Erev_kslow = -82
+    insert kleak
+      g_kleak = 3.69e-06
+      Erev_kleak = -82
+    insert hva
+      gbar_hva = 0.001417
+      Erev_hva = 80
+    insert clleak
+      g_clleak = 1e-06
+      Erev_clleak = -70
+    insert caleak
+      g_caleak = 6.5e-08
+      Erev_caleak = 80
+    insert bkfast
+      gbar_bkfast = 0.002572
+      Erev_bkfast = -82
+    insert ca_prox
+      B_ca_prox = 0.025
+      K2f_ex_ca_prox = 4.1296e-07
+      K2f_ATPase_ca_prox = 0.00030875
+    insert hcurr
+      gbar_hcurr = 0.000066
+      Erev_hcurr = -46
+  }
+  forsec distalB {
+    insert bkfast
+      gbar_bkfast = 0.00064
+      Erev_bkfast = -82
+    insert hva
+      gbar_hva = 0.00035
+      Erev_hva = 80
+    insert lva
+      gbar_lva = 5e-05
+      Erev_lva = 80
+    insert clleak
+      g_clleak = 1e-06
+      Erev_clleak = -70
+    insert kleak
+      g_kleak = 3.68e-06
+      Erev_kleak = -82
+    insert naleak
+      g_naleak = 7.1e-07
+      Erev_naleak = 50
+    insert ca_dist
+      B_ca_dist = 0.025
+      K2f_ex_ca_dist = 6.1751e-07
+      K2f_ATPase_ca_dist = 2.991e-05
+  }
+}
+access somaB
+
+celldefB()

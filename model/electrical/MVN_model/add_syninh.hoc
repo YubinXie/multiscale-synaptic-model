@@ -1,0 +1,58 @@
+// Add GABA synapses to every dendritic compartment
+// BPG 23-11-07
+
+NSYNI = 60
+objref Gsyn[NSYNI], ncG[NSYNI], nsg
+
+Gweight = 0.00002
+
+// spikes to inhibitory synapses
+somaB nsg = new NetStim(0.5)
+nsg.interval = 10000
+nsg.number = 1
+nsg.start = 220
+nsg.noise = 0
+
+// panel for spike timing
+xpanel("Inhibitory spikes")
+xpvalue("Start time", &nsg.start, 1)
+xpvalue("Interspike interval", &nsg.interval, 1)
+xpvalue("Number", &nsg.number, 1)
+xpanel()
+
+// Attach synapses to proximal dendrites
+for j=0,3 {
+  for i=0,2 {
+    dendB[j] Gsyn[j*3+i] = new Exp2Syn(0.25*(i+1))  // GABA
+  }
+}
+
+// Attach synapses to distal dendrites
+for j=4,11 {
+  for i=0,5 {
+    dendB[j] Gsyn[(j-4)*6+i+12] = new Exp2Syn(0.125*(i+1))  // GABA
+  }
+}
+
+// Set synaptic properties
+for i=0,NSYNI-1 {
+  // GABA
+  Gsyn[i].tau1 = 1	// fast rise
+  Gsyn[i].tau2 = 13	// decay (Gauk & Jaeger)
+  Gsyn[i].e = -80
+  ncG[i] = new NetCon(nsg, Gsyn[i], -20, 1, Gweight)
+}
+
+
+proc set_Gweights() {
+  for i=0,NSYNI-1 {
+    ncG[i].weight = Gweight  // GABA
+  }
+}
+
+
+// Panel for adjusting weights
+xpanel("Inhibitory weight")
+xpvalue("GABA", &Gweight, 1)
+xbutton("Update", "set_Gweights()")
+xpanel()
