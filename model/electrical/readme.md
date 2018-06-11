@@ -1,4 +1,4 @@
-#Quadroni and Knopfel MVN Neuron Models
+# Quadroni and Knopfel MVN Neuron Models
 --------------------------------------
 Reimplemented from ModelDB code (BPG 14-4-06)
   - cells now constructed explicitly in HOC files mvnA.hoc and mvnB.hoc
@@ -12,7 +12,7 @@ Extras:
   	       example of use in run_mvnBou.hoc
 
 ------------------------------------------------------------------------------------------
-**** Original README from ModelDB implementation ****
+* Original README from ModelDB implementation *
 ------------------------------------------------------------------------------------------
 Readme for a model from the Quadroni and Knopfel 1994 paper:
 
