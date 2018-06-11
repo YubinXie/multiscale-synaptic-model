@@ -1,6 +1,19 @@
 # Quadroni and Knopfel MVN Neuron Models
 --------------------------------------
-Reimplemented from ModelDB code (BPG 14-4-06)
+
+## How to run:
+
+mswin: double click on the mosinit.hoc file after compiling the mod files with mknrndll
+
+unix: type "nrnivmodl" and enter and then "nrngui mosinit.hoc" in the expanded archive folder.
+
+mac: after the archive is unziped drag and drop the newly created mvns folder onto the mknrndll 
+     icon. Then drag and drop the mosinit.hoc in the mvns folder onto the nrngui icon.
+
+-----------------------------------------
+## Implementation history:
+
+### Reimplemented from ModelDB code (BPG 14-4-06)
   - cells now constructed explicitly in HOC files mvnA.hoc and mvnB.hoc
     (replaces session files that construct CellBuilders)
 
@@ -12,7 +25,7 @@ Extras:
   	       example of use in run_mvnBou.hoc
 
 ------------------------------------------------------------------------------------------
-** Original README from ModelDB implementation **
+### Original README from ModelDB implementation
 ------------------------------------------------------------------------------------------
 Readme for a model from the Quadroni and Knopfel 1994 paper:
 
@@ -51,17 +64,6 @@ shows that the ability to generate low-threshold spike bursts critically depends
 of this conductance. Sodium plateaus were generated when increasing the density of gNap. 
 6. The type B model cell generated rhythmic bursts of spiking activity under simulation of two 
 distinct experimental conditions.(ABSTRACT TRUNCATED AT 400 WORDS)
-
------------------------------------------
-
-## How to run:
-
-mswin: double click on the mosinit.hoc file after compiling the mod files with mknrndll
-
-unix: type "nrnivmodl" and enter and then "nrngui mosinit.hoc" in the expanded archive folder.
-
-mac: after the archive is unziped drag and drop the newly created mvns folder onto the mknrndll 
-     icon. Then drag and drop the mosinit.hoc in the mvns folder onto the nrngui icon.
 
 -----------------------------------------
 
