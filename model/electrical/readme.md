@@ -12,7 +12,7 @@ Extras:
   	       example of use in run_mvnBou.hoc
 
 ------------------------------------------------------------------------------------------
-* Original README from ModelDB implementation *
+** Original README from ModelDB implementation **
 ------------------------------------------------------------------------------------------
 Readme for a model from the Quadroni and Knopfel 1994 paper:
 
