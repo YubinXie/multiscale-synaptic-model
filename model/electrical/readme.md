@@ -3,25 +3,25 @@
 --------------------------------------
 ## Pre-requirement 
 
-Software: NEURON 
+**Software**: NEURON 
 
-Link: https://www.neuron.yale.edu/neuron 
+**Link**: https://www.neuron.yale.edu/neuron 
 
-Note: Running of NEURON requires some other tools. E.g., in Mac OS, `XQuartz` and `command line tool` are needed.
+**Note**: Running of NEURON requires some other tools. E.g., in Mac OS, `XQuartz` and `command line tool` are needed.
 
 --------------------------------------
 
 ## How to run:
-**First comiple the model and then run the specific protocol file (xxx.hoc)**
+**First compile the model and then run the specific protocol file (xxx.hoc)**
 
-mswin: double click on the xxx.hoc file to run a certain protocol after compiling the mod files with mknrndll
+**mswin**: double click on the xxx.hoc file to run a certain protocol after compiling the mod files with mknrndll
 
-unix: type "nrnivmodl" and enter and then "nrngui xxx.hoc" in the expanded archive folder to run a certain protocol.
+**unix**: type "nrnivmodl" and enter and then "nrngui xxx.hoc" in the expanded archive folder to run a certain protocol.
 
-mac: after the archive is unziped drag and drop the newly created mvns folder onto the mknrndll 
+**mac**: after the archive is unziped drag and drop the newly created mvns folder onto the mknrndll 
      icon. Then drag and drop the xxx.hoc in the mvns folder onto the nrngui icon to run a certain protocol.
 
-Offical DOCUMENTATION: https://www.neuron.yale.edu/neuron/faq/general-questions
+**Offical Documentation**: https://www.neuron.yale.edu/neuron/faq/general-questions
 
 
 -----------------------------------------
