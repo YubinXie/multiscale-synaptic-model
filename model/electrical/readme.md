@@ -7,12 +7,12 @@ Software: NEURON
 
 Link: https://www.neuron.yale.edu/neuron 
 
-Note: Running of NEURON requires some other tools. E.g., in Mac OS, XQuartz and command line tool are needed.
+Note: Running of NEURON requires some other tools. E.g., in Mac OS, `XQuartz` and `command line tool` are needed.
 
 --------------------------------------
 
 ## How to run:
-** First comiple the model and then run the specific protocol file (xxx.hoc) **
+**First comiple the model and then run the specific protocol file (xxx.hoc)**
 
 mswin: double click on the xxx.hoc file to run a certain protocol after compiling the mod files with mknrndll
 
