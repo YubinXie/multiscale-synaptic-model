@@ -1,14 +1,25 @@
 # Quadroni and Knopfel MVN Neuron Models
+
+--------------------------------------
+## Pre-requirement 
+
+Software: NEURON 
+Link: https://www.neuron.yale.edu/neuron
+Note: Running of NEURON requires some 
+
 --------------------------------------
 
 ## How to run:
+** First comiple the model and then run the specific protocol file (xxx.hoc) **
 
-mswin: double click on the mosinit.hoc file after compiling the mod files with mknrndll
+mswin: double click on the xxx.hoc file to run a certain protocol after compiling the mod files with mknrndll
 
-unix: type "nrnivmodl" and enter and then "nrngui mosinit.hoc" in the expanded archive folder.
+unix: type "nrnivmodl" and enter and then "nrngui xxx.hoc" in the expanded archive folder to run a certain protocol.
 
 mac: after the archive is unziped drag and drop the newly created mvns folder onto the mknrndll 
-     icon. Then drag and drop the mosinit.hoc in the mvns folder onto the nrngui icon.
+     icon. Then drag and drop the xxx.hoc in the mvns folder onto the nrngui icon to run a certain protocol.
+
+Offical DOCUMENTATION: https://www.neuron.yale.edu/neuron/faq/general-questions
 
 -----------------------------------------
 ## Implementation history:
