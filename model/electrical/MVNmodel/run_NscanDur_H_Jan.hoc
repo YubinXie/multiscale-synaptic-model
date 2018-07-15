@@ -1,0 +1,118 @@
+// MVN B cell with AMPA/NMDA GABA synapse in every dendritic compartment
+// Yubin Xie 2016-9-3
+
+load_file("nrngui.hoc")
+load_file("globals.hoc")
+load_file("mvnB.hoc")
+
+// general simulation settings
+DT = 0.025
+dt = DT
+steps_per_ms = 1/DT
+tstart = TSTART
+tstop = 2000
+celsius = TEMPERATURE
+v_init = V_INIT
+
+access somaB
+
+
+// set up AMPA/NMDA synapses
+load_file("Syn1_setting_Yubin.hoc")
+
+
+
+// Current clamps
+objref ccres, cchyp
+// hold at rest potential (-65mV)
+somaB ccres = new IClamp(0.5)
+
+// hyperpolarising pulse
+somaB cchyp = new IClamp(0.5)
+
+xopen("mvnB_Yubin.ses")
+
+ccres.del = 0
+ccres.dur = 0
+//ccres.amp = -0.12
+cchyp.del = 1000
+cchyp.dur = 250
+cchyp.amp = -0.475
+
+//setting A/N Synapses0
+ns.number=55
+Aweight_others=2e-5
+Nweight_others=5e-5
+Aweight_d3=2e-5 
+Nweight_d3=5e-5
+Aweight_d10=2e-5  
+Nweight_d10=5e-5
+Aweight_d11=2e-5
+Nweight_d11=5e-5
+ns.start=1000
+ns.interval = 10
+set_weights()
+//setting GABA synapses
+nsg.start=1000
+nsg.number=0
+nsg.interval = 10
+Gweight_others=0.05
+Gweight_d3=0.05
+Gweight_d10=0.05   
+Gweight_d11=0.05
+set_Gweights()
+
+
+objref savedata, sdata
+objref rect, recv_p,recca_p,recca_d,recv_d,recnmda_p,rechva_p,reclva_p
+objref matrix
+strdef fname
+
+savedata= new File()
+sdata= new File()
+rect = new Vector()
+recv_p = new Vector()
+recv_d = new Vector()
+recca_p= new Vector()
+recca_d= new Vector()
+reclva_p= new Vector()
+rechva_p= new Vector()
+recnmda_p= new Vector()
+matrix = new Matrix()
+
+tstop = 2000
+
+for k=0,25 {
+cchyp.dur=k*10
+//print k
+sprint(fname,"../Data/Duration-H/I=0EH0.475Duration=%.0f_Normal.txt",cchyp.dur)
+savedata.wopen(fname)
+recv_p.record(&dendB[3].v(0.5))
+recv_d.record(&dendB[11].v(0.5))
+rect.record(&t)
+recca_p.record(&dendB[3].cai(0.5))
+recca_d.record(&dendB[11].cai(0.5))
+reclva_p.record(&dendB[3].i_lva(0.5)) 
+rechva_p.record(&dendB[3].i_hva(0.5)) 
+recnmda_p.record(&Nsyn[9].i) 
+run()
+
+print(rect.size())
+//print("Stimulating %f",fname)
+
+
+savedata.printf("t\tdendB[3].v(0.5)\tdendB[11].v(0.5)\tdendB[3].cai(0.5)\tdendB[11].cai\tdend[3].lva\tdend[3].hva\tdend[3].nmda\n")
+matrix.resize(rect.size(),8)
+matrix.setcol(0,rect)
+matrix.setcol(1,recv_p)
+matrix.setcol(2,recv_d)
+matrix.setcol(3,recca_p)
+matrix.setcol(4,recca_d)
+matrix.setcol(5,reclva_p)
+matrix.setcol(6,rechva_p)
+matrix.setcol(7,recnmda_p)
+
+//matrix.setcol(3,reclva)
+matrix.fprint(savedata,"%.7g\t")
+savedata.close()
+}
