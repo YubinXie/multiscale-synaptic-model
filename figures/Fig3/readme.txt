@@ -12,11 +12,11 @@ Prism files that take the data of Membrane potential Ca concentration and LVACC,
 3.Average_Ca.pzfx
 Prism file for average Ca.
 
-4. Normal_EH_Ca.pdf， Normal_EH_MembranePotential.pdf， Normal_Eonly_MembranePotential.pdf， Normal_Eonly_Ca.pdf，RelativeCaNormalH0.pdf
+4. figure/Normal_EH_Ca.pdf， Normal_EH_MembranePotential.pdf， Normal_Eonly_MembranePotential.pdf， Normal_Eonly_Ca.pdf，RelativeCaNormalH0.pdf
 PDF version of the result.
 
 5. Normal_Ca_Average.py
 Python script to calculate the average Ca starting from 1000s to 1550s (total 550).
 
 II. Note
-1. You can directly run run_Normal.hoc in NEURON-LINUX or MAC folder.
+1. You can run run_Normal.hoc in NEURON software directory.
