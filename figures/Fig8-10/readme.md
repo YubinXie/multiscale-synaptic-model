@@ -1,41 +1,46 @@
 
-# Figure 7-9
+# Figure 8-10
 
-## Content 
+## Figure
+![alt text](./outputs/Fig-8.pdf)
+![alt text](./outputs/Fig-9.pdf)
+![alt text](./outputs/Fig-10.pdf)
 
-### **.hoc
+
+
+## Components
+
+- **\*\*.hoc**
 	- NEURON protocol scripts to generate NEURON simulation results.
-	- xx is for Figure 7
-	- xx is for Figure 8
-	- xx is for Figure 9
-
-### SetupFolders.py
+	- run\_Normal\_scanAmp\_Jan.hoc is for Figure 8
+	- run\_Normal\_scanDur\_H\_Jan.hoc is for Figure 9
+	- run\_Normal\_scanTim\_Jan.hoc is for Figure 10
+- **SetupFolders.py**
 	- run the script on the local machine in the directory containing NEURON input files and 
-	the intial COPASI model 
-	-the script loops through both the COPASI model and NEURON input files generating new models 
-	in seperate folders
+	the intial COPASI model， the script loops through both the COPASI model and NEURON input files generating new models in seperate folders
+	- SetupFolders_strength_duration.py is for strength and duration, where the unit stimulation windows is 1000 ms. 
+	- SetupFolders_timing.py is for timing simulation, where the unit stimulation time windows is 1500 ms.
 
-### allruns.sh  
-	- The script automatically submits all the COPASI models to the queue on the computer cluster 
+-  **allruns.sh**  
+	- The script automatically submits all the COPASI models to the queue on the  computer cluster 
 	- Run the script in the directory containing folders with the COPASI models
 
-### Graphs.py 
-	- After downloading the results into the local machine, the script visualises the results 
-	- line 11: inputPath='Data directory path.../Strength/*.csv' - select the path were the results are stored 
-	- line 17: insert the first part of the file name before the viarble
-	- line 19: insert the second part of the file name after the viarble
-	- line 20 and 21 - choose appropriate units 
-	- lines 32-39 - select these lines creating the graphs for the timing experiment 
-	- lines 28-30 - use these lines for the strength and duration experiments
-	- line 61: Choose the appropriate set of data to plot 
-	- line 72: choose Y axis title 
-	- line 73: choose graph title 
-	- line 76: choose a graph name and a format
+- **\*\*\_extract_batch_info.py**
+	- To visulize the results from the batch COPASI runs.
 
-## Procedure 
+- **command_generator.py \*\*\_commands.txt**
+	- command_generator.py generates \*\*\_commands.txt, which include the COPASI file to be run.
+
+- **threading.sh**
+	- Bash script to run multi COPASI file in parallel. Change the command file name in line 18 to decide which \*\*\_commands.txt to run.
+
+
+
+
+## Instruction 
 	- Copy the NEURON protocol script into the NEURON folder (model/electrical/MVNmodel)
 	- Run the NEURON protocol script to generate corresponding NEURON output that recording membrane potential and calcium concentration in MVN neurons.
-	- Copy the initial COPASI model () into xxx, which is in biochemistry equilibrium under normal firing MVN B neurons condition.
-	- Copy the SetupFolders.py to xxx and run the scritp to generate new COPASI file with controled calcium concentration from NEURON output.
-	- Copy SetupFolders.py to xx and Run allruns.sh to run all the COPASI model and outputs will be automatically recorded.
-	- Run Graphs.py to plot the recorded biochemistry dynamics under certain electrial simulation.
+	- Copy the initial COPASI model () into the result folder of from previous NEURON model, which is in biochemistry equilibrium under normal firing MVN B neurons condition.
+	- Copy the SetupFolders.py to the previous dolder and run the scritp (`python SetupFolders.py `) to generate new COPASI file with controled calcium concentration from NEURON output.
+	- Run allruns.sh (if in cluster) or run command_generator.py and hreading.sh (if in a multi-core computer) to run all the COPASI model and outputs will be automatically recorded.
+	- Run \*\*_extract_batch_info to plot the recorded biochemistry dynamics under certain electrial simulation.

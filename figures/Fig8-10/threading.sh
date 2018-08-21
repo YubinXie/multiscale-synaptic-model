@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Script to run processes in parallel
+# Script to run processes in parallel from Manu N Setty
 # Manu N Setty
 # 11/15/2009
 
@@ -8,8 +8,6 @@
 # CMD      Command to be run
 # NO_PROC  No of processes
 
-# Revised       Comments
-# 04/07/2010    Use 100 as default process
 
 INPUTS=()
 CMD=./script.sh
