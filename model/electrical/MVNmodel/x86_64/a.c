@@ -252,7 +252,7 @@ static int _ode_spec1(_threadargsproto_);
  rates ( _threadargscomma_ v ) ;
  Da = Da  / (1. - dt*( ( ( ( - 1.0 ) ) ) / tau_a )) ;
  Db = Db  / (1. - dt*( ( ( ( - 1.0 ) ) ) / tau_b )) ;
- return 0;
+  return 0;
 }
  /*END CVODE*/
  static int states (double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) { {

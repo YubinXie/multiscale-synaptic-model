@@ -9,7 +9,6 @@
 	Raw data. The following values were recorded. 
  	[Ca]\_0	Values[AMPAR_bar]	Values[CaMKII_active_ratio]	Values[CaMKIIp_bar]	Values[Dp_bar]	Values[PP1a_bar]	Values[PP2B_bar]
 
-
 3. **outputs/AMPAR-Ca-Scan.pdf,Key-Species-Scan.pdf,CaMKII-P-Scan.pdf** <br/>
 	PDF version of the result.
 

@@ -269,7 +269,7 @@ static int _ode_spec1(_threadargsproto_);
  Dm = Dm  / (1. - dt*( ( alpham ( _threadargscomma_ v ) )*( ( ( - 1.0 ) ) ) - ( betam ( _threadargscomma_ v ) )*( 1.0 ) )) ;
  Dh = Dh  / (1. - dt*( ( alpha1 ( _threadargscomma_ v ) )*( ( ( - 1.0 ) ) ) - ( beta1 ( _threadargscomma_ v ) )*( 1.0 ) )) ;
  Dd = Dd  / (1. - dt*( ( beta2 ( _threadargscomma_ v ) )*( ( ( - 1.0 ) ) ) - ( alpha2 ( _threadargscomma_ v ) )*( 1.0 ) )) ;
- return 0;
+  return 0;
 }
  /*END CVODE*/
  static int states (double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) { {

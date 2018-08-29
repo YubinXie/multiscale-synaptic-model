@@ -286,7 +286,7 @@ static int _ode_spec1(_threadargsproto_);
  spikes ( _threadargscomma_ N , freq ) ;
  Dz = Dz  / (1. - dt*( - ( ( 1.0 ) / tau1 ) )) ;
  Dg = Dg  / (1. - dt*( - ( ( 1.0 ) / tau2 ) )) ;
- return 0;
+  return 0;
 }
  /*END CVODE*/
  static int conductances () {_reset=0;

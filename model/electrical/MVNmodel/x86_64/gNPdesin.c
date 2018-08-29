@@ -253,7 +253,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
- static double PI = 3.14159265359;
+ static double PI = 3.14159;
 static int _reset;
 static char *modelname = "N conductances driven by Poisson-distributed, sinusoidally-modulated spikes";
 

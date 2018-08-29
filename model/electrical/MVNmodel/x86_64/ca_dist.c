@@ -272,8 +272,8 @@ extern void _cvode_abstol( Symbol**, double*, int);
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
- static double FARADAY = 9.6485309;
- static double PI = 3.14159265359;
+ static double FARADAY = 9.64853;
+ static double PI = 3.14159;
  static double _zfactors_done ;
  static double _zfrat [ 2 ] ;
  static double _zdsq , _zdsqvol ;
@@ -315,7 +315,7 @@ static int _ode_spec1(_threadargsproto_);
 }
  static int _ode_matsol1 () {
  Dn = Dn  / (1. - dt*( ( f_ATPase * cai )*( ( ( - 1.0 ) ) ) - ( b_ATPase )*( 1.0 ) )) ;
- return 0;
+  return 0;
 }
  /*END CVODE*/
  static int states () {_reset=0;
