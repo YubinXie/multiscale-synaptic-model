@@ -10,4 +10,4 @@
 1. To edit the .gml file, find the software Vanted here : https://immersive-analytics.infotech.monash.edu/vanted/addons/sbgn-ed/download_installation.html 
 
 ## Results
-![alt text](./Chem_schematic.pdf)
+![alt text](Chem_schematic.pdf)
