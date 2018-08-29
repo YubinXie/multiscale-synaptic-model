@@ -24,4 +24,4 @@
 2. To run the python script in this folder, ``python *.py``, to calculate the average Ca.
 
 ## Results
-![alt text](./outputs/Fig-4.pdf)
+![alt text](./outputs/Fig-4.png)

@@ -2,7 +2,7 @@
 # Multiscale-Synaptic-Model Figure 7
 
 ## Figure
-![alt text](./outputs/Fig-7.pdf)
+![alt text](./outputs/Fig-7.png)
 
 
 ## Components

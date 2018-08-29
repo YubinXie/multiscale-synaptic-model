@@ -23,4 +23,4 @@
 2. After get the \*\_C folders, running the COPASI files inside allows you to get the molecular dynmaics under the given the electraical stimulation.
 
 ## Results
-![alt text](./outputs/Fig-5.pdf)
+![alt text](./outputs/Fig-5.png)

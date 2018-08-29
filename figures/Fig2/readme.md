@@ -32,4 +32,4 @@
 2. You can get the time course result by clicking the run button in the Task-Time Course in Model_8-11-Ca-7.14-TIME.cps, Model_8-11-Ca-7.47-TIME.cps COPASI file. 
 
 ## Results
-![alt text](./outputs/chem_stim.pdf)
+![alt text](./outputs/chem_stim.png)

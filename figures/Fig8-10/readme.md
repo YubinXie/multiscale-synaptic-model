@@ -2,9 +2,9 @@
 # Figure 8-10
 
 ## Figure
-![alt text](./outputs/Fig-8.pdf)
-![alt text](./outputs/Fig-9.pdf)
-![alt text](./outputs/Fig-10.pdf)
+![alt text](./outputs/Fig-8.png)
+![alt text](./outputs/Fig-9.png)
+![alt text](./outputs/Fig-10.png)
 
 
 
