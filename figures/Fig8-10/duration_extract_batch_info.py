@@ -10,13 +10,14 @@ identity_names = [x.split('/')[-2] for x in strength_files]
 condition_names = [float(x.split('Duration=')[-1].split('_Normal')[0]) for x in identity_names]
 
 
-sample_list = [0,10,20,30,40,50,60,70,80,90,100,150,200,250,300,350,400,450,500,550]
+#sample_list = [0,10,20,30,40,50,60,70,80,90,100,150,200,250,300,350,400,450,500,550]
+sample_list = range(0,600,50)
 
 sort_condition_names = sorted([x for x in condition_names if x in sample_list])#if (float(x)>=-500) and (float(x)<=250)])
 order = [condition_names.index(x) for x in sort_condition_names]
 print(sort_condition_names)
 
-colormap = plt.cm.gist_ncar #nipy_spectral, Set1,Paired   
+colormap = plt.cm.viridis # .gist_ncar #nipy_spectral, Set1,Paired   
 
 colors = [colormap(i) for i in np.linspace(1, 0,len(sort_condition_names))]
 
