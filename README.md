@@ -5,7 +5,11 @@
 
 In the model folder, the two models - chemical model of synaptic plasticity, and electraical model of MVN Type B neurons are included. 
 
+<<<<<<< HEAD
 
+=======
+![alt text](./figures/Fig1/outputs/Fig-1.png)
+>>>>>>> 503d078a1a4681b46b7781562ed0bb45b1b00421
 
 
 ### Chemical model
